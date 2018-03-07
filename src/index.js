@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 
-import App from './components/app';
-import reducers from './reducers';
+const YOUTUBE_KEY = process.env.YOUTUBE_KEY;
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+// Create new component. Componet should produce HTML
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
-  , document.querySelector('.container'));
+const App = function () {
+  return <div>Hi!</div>;
+}
+
+// Take component's generated HTML and add it to the DOM (add to page)
+
+ReactDOM.render(<App />, document.getElementById('container'));
+
