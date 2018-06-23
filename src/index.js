@@ -1,8 +1,25 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import SearchBar from './components/search_bar.js';
+import YOUTUBE_API_KEY from './config/config.js';
+
 // Create new component. This should produce some html
-const App = function () {
-  return <div>Hi!</div>;
-}
+const App = () => {
+  return (
+    <div>
+      <SearchBar />
+    </div>)
+};
+
 // Take this component's generated html and put in the DOM
+ReactDOM.render(<App />, document.getElementById('container'));
+
+
+
+
+
+
 
 // import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
