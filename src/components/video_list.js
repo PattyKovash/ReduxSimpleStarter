@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import VideoListItem from './video_list_item.js';
 
-const VideoList = (props) => {
-  const videoItems = props.videos.map((video) => {
+const VideoList = ({ videos, handleVideoSelect }) => {
+
+  const videoItems = videos.map((video) => {
     return (
       <VideoListItem
         key={ video.etag }
         video={ video }
-        handleVideoSelect={ props.handleVideoSelect } />
+        handleVideoSelect={ handleVideoSelect } />
     );
   });
 
@@ -17,5 +19,10 @@ const VideoList = (props) => {
     </ul>
   );
 }
+
+VideoList.propTypes = {
+  videos: PropTypes.array,
+  handleVideoSelect: PropTypes.func
+};
 
 export default VideoList;
