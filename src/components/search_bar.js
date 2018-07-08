@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -10,47 +11,28 @@ class SearchBar extends Component {
   }
 
   handleInputChange(event) {
-    this.setState({
-      term: event.target.value
-    });
+    var term = event.target.value;
+    this.setState({ term: term });
+
+    setTimeout(() => {
+      this.props.handleSearch(term);
+    }, 3000);
   }
 
   render() {
     return (
-      <div>
+      <div className="search-bar">
         <input
           value={ this.state.term }
-          onChange={ this.handleInputChange }/>
+          type="search"
+          onChange={ this.handleInputChange } />
       </div>
     );
   }
 }
 
+SearchBar.propTypes = {
+  handleSearch: PropTypes.func
+};
+
 export default SearchBar;
-// import React, { Component } from 'react';
-
-// class SearchBar extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = { term: '' };
-
-//     this.onInputChange = this.onInputChange.bind(this);
-//   }
-
-//   onInputChange(event) {
-//     this.setState({ term: event.target.value });
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <input
-//           value={ this.state.term }
-//           onChange={ this.onInputChange }/>
-//       </div>
-//     );
-//   }
-// }
-
-// export default SearchBar;

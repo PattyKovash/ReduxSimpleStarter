@@ -6,7 +6,6 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar.js';
 import VideoDetail from './components/video_detail.js';
 import VideoList from './components/video_list.js';
-import VideoListItem from './components/video_list_item.js';
 
 // Config File
 import YOUTUBE_API_KEY from './config/config.js';
@@ -21,25 +20,42 @@ class App extends Component {
     };
 
     this.handleVideoSelect = this.handleVideoSelect.bind(this);
+    this.searchAndSet = this.searchAndSet.bind(this);
   }
 
   componentDidMount() {
-    YTSearch({ key: YOUTUBE_API_KEY, term: 'surfboards' }, (videos) => {
-      this.setState({
-        videos: videos,
-        selectedVideo: videos[0]
-      });
-    });
+    this.searchAndSet('surfboards');
+  }
+
+  searchVideo(term, cb) {
+    YTSearch({ key: YOUTUBE_API_KEY, term: term }, (videos, err) => {
+      cb(videos, err);
+    })
+  }
+
+  setVideos(videos) {
+    this.setState({ videos });
   }
 
   handleVideoSelect(selectedVideo) {
     this.setState({ selectedVideo });
   }
 
+  searchAndSet(term) {
+    this.searchVideo(term, (videos, err) => {
+      if (videos) {
+        this.setVideos(videos);
+        this.handleVideoSelect(videos[0]);
+      } else {
+        console.log('ERROR: ', err);
+      }
+    })
+  }
+
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar handleSearch={ this.searchAndSet }/>
         <VideoDetail video={ this.state.selectedVideo } />
         <VideoList
           handleVideoSelect={ this.handleVideoSelect }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const VideoListItem = ({ video, handleVideoSelect }) => {
   const snippet = video.snippet;
@@ -10,7 +11,7 @@ const VideoListItem = ({ video, handleVideoSelect }) => {
 
   return (
     <li className="list-group-item" onClick={ handleClick }>
-      <div className="video-list media">
+      <div className="video-item media">
         <div className="media-left">
           <img className="media-object" src={ imageUrl } />
         </div>
@@ -23,6 +24,11 @@ const VideoListItem = ({ video, handleVideoSelect }) => {
       </div>
     </li>
   );
+};
+
+VideoListItem.propTypes = {
+  video: PropTypes.object,
+  handleVideoSelect: PropTypes.func
 };
 
 export default VideoListItem;
